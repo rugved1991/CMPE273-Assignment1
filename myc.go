@@ -92,7 +92,7 @@ func BuyStocks(){
 		output += i.ResponseFields.Name +":"+strconv.Itoa(i.ResponseFields.Number)+":"+"$"+i.ResponseFields.Price+","
 	}
 	output=strings.Trim(output,",")
-	output+="\"\n\"unvestedAmount\":$"+strconv.FormatFloat(float64(jsonMsg.UnvestedAmount),'f',-1,32)		
+	output+="\"\n\"unvestedAmount\":"+strconv.FormatFloat(float64(jsonMsg.UnvestedAmount),'f',-1,32)		
 	if err!=nil {
 		fmt.Println(err)
 	}else{
@@ -122,14 +122,14 @@ func SeePortfolio(){
 	var reply string
 	err = c.Call("Server.LossOrGain",string(result4),&reply)
 	var output string
-	output = "\"stocks\":"
+	output = "\"stocks\":"+"\""
 	json.Unmarshal([]byte(reply),&jsonMsg2)
 	for _, i:= range jsonMsg2.Stocks{
 		output += i.ResponseFields.Name +":"+strconv.Itoa(i.ResponseFields.Number)+":"+i.ResponseFields.Price+","
 	}
 	output=strings.Trim(output,",")
-	output+="\"\n\"currentMarketValue\":$"+strconv.FormatFloat(float64(jsonMsg2.CurrentMarketValue),'f',-1,32)
-	output+="\n\"unvestedAmount\":$"+strconv.FormatFloat(float64(jsonMsg2.UnvestedAmount),'f',-1,32)
+	output+="\"\n\"currentMarketValue\":"+strconv.FormatFloat(float64(jsonMsg2.CurrentMarketValue),'f',-1,32)
+	output+="\n\"unvestedAmount\":"+strconv.FormatFloat(float64(jsonMsg2.UnvestedAmount),'f',-1,32)
 	if err!=nil {
 		fmt.Println(err)
 	}else{
